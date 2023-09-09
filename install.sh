@@ -14,30 +14,50 @@ dotfiles() {
 	  git --git-dir=$HOME/.dotfiles --work-tree=$HOME "$@"
 }
 
+dotfiles config --local status.showUntrackedFiles no
+# Check if README.md exists in the repository
+# if dotfiles ls-files | grep -q 'README.md'; then
+if [ -f "README.md" ]; then
+  # dotfiles update-index --skip-worktree README.md
+  git --git-dir=$HOME/.dotfiles --work-tree=$HOME reset README.md
+  git --git-dir=$HOME/.dotfiles --work-tree=$HOME update-index --assume-unchanged README.md
+fi
+
+if [ -f "env" ]; then
+  git --git-dir=$HOME/.dotfiles --work-tree=$HOME reset env
+  git --git-dir=$HOME/.dotfiles --work-tree=$HOME update-index --assume-unchanged env
+fi
+
 
 # git --git-dir=$HOME/.dotfiles --work-tree=$HOME config --local status.showUntrackedFiles no
-dotfiles config --local status.showUntrackedFiles no
-git --git-dir=$HOME/.dotfiles --work-tree=$HOME reset README.md
-git --git-dir=$HOME/.dotfiles --work-tree=$HOME update-index --assume-unchanged README.md
-
 
 # if ! grep -q "^README.md$" $HOME/.dotfiles/info/exclude; then
 #   echo "README.md" >> $HOME/.dotfiles/info/exclude
 # fi
 
 [ -f "README.md" ] && mv $HOME/README.md $HOME/.dotfiles/README.md
+[ -f "env" ] && rm $HOME/env
 
 touch .hushlogin
+mkdir -p .local/bin
 
 sudo apt update
 sudo apt -y upgrade
 
+sudo apt -y install zsh
+
+# make zsh default shell
+echo $USER_PASS | chsh -s $(which zsh)
+
 # do you want git setup based on .env?
-# sudo apt install -y git
+sudo apt -y install git
 # 
-# mkdir -p ~/$PARENT_FOLDER
+mkdir -p ~/$PARENT_FOLDER
 # 
-# IFS=',' read -ra PROFILE_ARRAY <<< "$PROFILES"
+IFS=',' read -ra PROFILE_ARRAY <<< "$PROFILES"
+# MAIN_PROFILE_NAME=$(trim "$PROFILE_ARRAY[0]")
+# MAIN_PROFILE_NAME=$PROFILE_ARRAY[0]
+mkdir -p ~/$PARENT_FOLDER/$PROFILE_ARRAY
 # for PROFILE_NAME in "${PROFILE_ARRAY[@]}"; do
 #     # Trim spaces
 #     PROFILE_NAME=$(trim "$raw_profile")
