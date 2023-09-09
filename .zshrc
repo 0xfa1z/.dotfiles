@@ -15,7 +15,4 @@ zstyle ':vcs_info:*' enable git
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}=[A-Za-z]'
 
-# dotfiles() {
-# 	git --git-dir=$HOME/.dotfiles --work-tree=$HOME "$@"
-# }
-alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME "$@"'
+alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
