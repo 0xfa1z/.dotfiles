@@ -52,12 +52,33 @@ echo $USER_PASS | chsh -s $(which zsh)
 # do you want git setup based on .env?
 sudo apt -y install git
 # 
-mkdir -p ~/$PARENT_FOLDER
+# mkdir -p ~/$PARENT_FOLDER
 # 
 IFS=',' read -ra PROFILE_ARRAY <<< "$PROFILES"
 # MAIN_PROFILE_NAME=$(trim "$PROFILE_ARRAY[0]")
 # MAIN_PROFILE_NAME=$PROFILE_ARRAY[0]
-mkdir -p ~/$PARENT_FOLDER/$PROFILE_ARRAY
+# mkdir -p ~/$PARENT_FOLDER/$PROFILE_ARRAY
+
+FIRST_PROFILE_NAME=$(echo "${PROFILE_ARRAY[0]}" | xargs)
+
+# Use indirect referencing to get the details of the first profile
+FIRST_PROFILE_VAR="${FIRST_PROFILE_NAME^^}"  # Uppercase conversion
+FIRST_PROFILE_DETAILS="${!FIRST_PROFILE_VAR}"
+
+# Parse these details to extract username, email, and token
+IFS=', ' read -ra DETAILS <<< "$FIRST_PROFILE_DETAILS"
+USERNAME="${DETAILS[0]}"
+EMAIL="${DETAILS[1]}"
+TOKEN="${DETAILS[2]}"
+
+# Generate .gitconfig file
+echo "[user]
+        name = $USERNAME
+        email = $EMAIL
+[credential]
+	helper = store" > $HOME/.gitconfig
+
+# IFS=',' read -ra MAIN_PROFILE_DETAILS <<< "$PROFILE1"
 # for PROFILE_NAME in "${PROFILE_ARRAY[@]}"; do
 #     # Trim spaces
 #     PROFILE_NAME=$(trim "$raw_profile")
