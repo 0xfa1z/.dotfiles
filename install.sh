@@ -27,7 +27,10 @@ setupZsh() {
 }
 
 setupGit() {
-  sudo apt -y install git
+        sudo apt -y install git
+
+  # Create the parent folder
+  mkdir -p $HOME/$PARENT_FOLDER
 
   IFS=',' read -ra PROFILE_ARRAY <<< "$PROFILES"
   FIRST_PROFILE_NAME=$(echo "${PROFILE_ARRAY[0]}" | xargs)
@@ -42,10 +45,31 @@ setupGit() {
 
   # Generate .gitconfig file
   echo "[user]
-          name = $USERNAME
-          email = $EMAIL
-  [credential]
-          helper = store" > $HOME/.gitconfig
+  name = $USERNAME
+  email = $EMAIL
+[credential]
+  helper = store" > $HOME/.gitconfig
+
+  for PROFILE_NAME in "${PROFILE_ARRAY[@]}"; do
+          PROFILE_NAME=$(echo "$PROFILE_NAME" | xargs)  # Remove extra spaces if any
+          PROFILE_VAR="${PROFILE_NAME^^}"  # Uppercase conversion
+          PROFILE_DETAILS="${!PROFILE_VAR}"
+
+          IFS=', ' read -ra DETAILS <<< "$PROFILE_DETAILS"
+          USERNAME="${DETAILS[0]}"
+          EMAIL="${DETAILS[1]}"
+          TOKEN="${DETAILS[2]}"
+
+          mkdir -p $HOME/$PARENT_FOLDER/$PROFILE_NAME
+
+  # Generate .gitconfig file
+  echo "[user]
+  name = $USERNAME
+  email = $EMAIL
+[credential]
+  helper = store" > $HOME/$PARENT_FOLDER/$PROFILE_NAME/.gitconfig
+
+done
 }
 
 # Main Execution
