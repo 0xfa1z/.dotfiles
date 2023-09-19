@@ -1,7 +1,9 @@
+SET_ZSH=true
+SET_GIT=true
+
+USER_PASS=username2
 PARENT_FOLDER=git_workspaces
-
 PROFILES="profile1, profile2, profile3"
-
 PROFILE1="username1, email1, token1"
 PROFILE2="username2, email2, token2"
 PROFILE3="username3, email3, token3"
