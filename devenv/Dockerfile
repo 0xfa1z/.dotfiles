@@ -17,3 +17,11 @@ ENV GIT_EMAIL=${GIT_EMAIL}
 RUN git config --global user.name ${GIT_NAME} \
     && git config --global user.email ${GIT_EMAIL}
 
+# Change to home directory, clone the repository, and setup the work tree
+RUN cd $HOME \
+    && git clone --bare https://github.com/0xfa1z/dotfiles.git $HOME/.dotfiles \
+    && git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
+
+# Execute the install script
+RUN chmod +x $HOME/install.sh \
+    && $HOME/install.sh
