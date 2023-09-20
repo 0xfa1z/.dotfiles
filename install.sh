@@ -75,7 +75,7 @@ done
 # Main Execution
 
 set -e
-source .env
+# source .env
 
 setupDotfilesRepo
 touch .hushlogin
@@ -87,6 +87,6 @@ if [ "$SET_ZSH" = "true" ]; then
   setupZsh
 fi
 
-if [ "$SET_GIT" = "true" ]; then
-  setupGit
-fi
+# if [ "$SET_GIT" = "true" ]; then
+#   setupGit
+# fi
