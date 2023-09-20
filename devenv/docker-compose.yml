@@ -1,0 +1,13 @@
+version: '3'
+services:
+  dev-environment:
+    build:
+      context: .
+      args:
+        - GIT_TOKEN=${GIT_TOKEN}
+        - GIT_NAME=${GIT_NAME}
+        - GIT_EMAIL=${GIT_EMAIL}
+    volumes:
+      - ./workdir:/workdir
+      - $HOME/.ssh:/root/.ssh
+    command: tail -f /dev/null
