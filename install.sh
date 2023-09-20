@@ -80,12 +80,9 @@ set -e
 setupDotfilesRepo
 touch .hushlogin
 mkdir -p .local/bin
-sudo apt update
-sudo apt -y upgrade
-
-if [ "$SET_ZSH" = "true" ]; then
-  setupZsh
-fi
+apt update
+apt -y upgrade
+setupZsh
 
 # if [ "$SET_GIT" = "true" ]; then
 #   setupGit
