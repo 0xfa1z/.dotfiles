@@ -9,5 +9,5 @@ services:
         - GIT_EMAIL=${GIT_EMAIL}
     volumes:
       - ./workdir:/workdir
-      - $HOME/.ssh:/root/.ssh
+      - $HOME/.ssh:/home/sfaiz/.ssh
     command: tail -f /dev/null
