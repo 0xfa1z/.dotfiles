@@ -18,6 +18,12 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}=[A-Za-z]'
 alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias df=dotfiles
 
-enter() {
-	docker exec -it $1 /bin/zsh
+create() {
+	docker run -it --name $1 -v $(pwd)/workdir:/home/sfaiz/workdir -v $HOME/.ssh:/home/sfaiz/.ssh $2 /bin/zsh
 }
+
+enter() {
+	docker start $1 > /dev/null
+	docker attach $1
+}
+

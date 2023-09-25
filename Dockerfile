@@ -3,8 +3,9 @@ FROM ubuntu:latest AS base
 
 # Run package updates and install packages
 RUN apt-get update && \
-    apt-get install -y git vim curl zsh sudo make
+    apt-get install -y git vim curl zsh sudo make tar tree wget
 #     rm -rf /var/lib/apt/lists/*
+
 
 # Set an environment variable for the Git token
 ARG GIT_TOKEN
@@ -26,8 +27,14 @@ RUN useradd -m -s /bin/zsh sfaiz && \
 USER sfaiz
 WORKDIR /home/sfaiz
 
+
 # You could COPY a .zshrc file here if you have one on your host
+USER root
 COPY .zshrc /home/sfaiz/.zshrc
+RUN chown sfaiz:sfaiz /home/sfaiz/.zshrc
+RUN mkdir -p /home/sfaiz/workdir && chown sfaiz:sfaiz /home/sfaiz/workdir
+VOLUME ["/home/sfaiz/workdir"]
+USER sfaiz
 
 # Setup Git Configurations
 RUN git config --global user.name ${GIT_NAME} \
@@ -38,10 +45,18 @@ FROM base AS go-env
 
 # Install Go
 USER root
+
 RUN apt-get update && \
-    apt-get install -y golang && \
     rm -rf /var/lib/apt/lists/*
+
+# Download and extract Go
+RUN wget https://go.dev/dl/go1.21.1.linux-amd64.tar.gz && \
+    tar -xvf go1.21.1.linux-amd64.tar.gz && \
+    mv go /usr/local && \
+    rm go1.21.1.linux-amd64.tar.gz
+
 USER sfaiz
+RUN echo 'export PATH=$PATH:/usr/local/go/bin' >> /home/sfaiz/.zshrc
 
 # ----- Java Stage -----
 FROM base AS java-env
