@@ -4,8 +4,8 @@
 SSH_DIR="$HOME/.ssh"
 
 # SSH key files
-PRIVATE_KEY="$SSH_DIR/id_rsa"
-PUBLIC_KEY="$SSH_DIR/id_rsa.pub"
+PRIVATE_KEY="$SSH_DIR/git-key-me"
+PUBLIC_KEY="$SSH_DIR/git-key-me.pub"
 
 # Check if SSH directory exists
 if [ ! -d "$SSH_DIR" ]; then

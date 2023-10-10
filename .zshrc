@@ -17,9 +17,11 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}=[A-Za-z]'
 
 alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias df=dotfiles
+alias vzsh='vi ~/.zshrc'
+alias host='echo $HOSTNAME'
 
 create() {
-	docker run -it --name $1 -v $(pwd)/workdir:/home/sfaiz/workdir -v $HOME/.ssh:/home/sfaiz/.ssh $2 /bin/zsh
+	docker run -it --name $1 -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd)/workdir:/home/sfaiz/workdir -v $HOME/.ssh:/home/sfaiz/.ssh $2 /bin/zsh
 }
 
 enter() {
