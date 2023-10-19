@@ -1,13 +1,26 @@
 # ----- Base Stage ----- 
-FROM ubuntu:latest AS base
+FROM ubuntu:latest AS base-env
 
+## Installations
 # Run package updates and install packages
 RUN apt-get update && \
-    apt-get install -y git vim curl zsh sudo make tar tree wget 
+    apt-get install -y apt-utils sudo git vim zsh tmux wget curl unzip tar tree make 
 #     rm -rf /var/lib/apt/lists/*
-# to allow for add-apt-repository:
-RUN apt-get install -y software-properties-common
-RUN apt-get install -y docker.io
+
+# Add Docker's official GPG key:
+RUN sudo apt-get install -y ca-certificates curl gnupg && \
+    sudo install -m 0755 -d /etc/apt/keyrings && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg && \
+    sudo chmod a+r /etc/apt/keyrings/docker.gpg 
+
+# Add the repository to Apt sources:
+RUN echo \
+    "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+    "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN sudo apt-get update
+
+RUN sudo apt-get install -y docker-ce-cli docker-buildx-plugin docker-compose-plugin
 
 # Set an environment variable for the Git token
 ARG GIT_TOKEN
@@ -25,8 +38,8 @@ RUN useradd -m -s /bin/zsh sfaiz && \
     echo 'sfaiz:sfaiz' | chpasswd && \
     usermod -aG sudo sfaiz
 
-# RUN groupadd docker # -g <HOST_DOCKER_GROUP_GID> docker
-RUN groupmod -g 1001 docker
+RUN groupadd -g 1001 docker # -g <HOST_DOCKER_GROUP_GID> docker
+# RUN groupmod -g 1001 docker
 RUN usermod -aG docker sfaiz
 
 
@@ -34,11 +47,12 @@ RUN usermod -aG docker sfaiz
 USER sfaiz
 WORKDIR /home/sfaiz
 
-
 # You could COPY a .zshrc file here if you have one on your host
 USER root
 COPY .zshrc /home/sfaiz/.zshrc
+COPY .tmux.conf /home/sfaiz/.tmux.conf
 RUN chown sfaiz:sfaiz /home/sfaiz/.zshrc
+RUN chown sfaiz:sfaiz /home/sfaiz/.tmux.conf
 RUN mkdir -p /home/sfaiz/workdir && chown sfaiz:sfaiz /home/sfaiz/workdir
 VOLUME ["/home/sfaiz/workdir"]
 USER sfaiz
@@ -77,3 +91,18 @@ USER sfaiz
 
 # ----- ANN Stage -----
 FROM base AS ann-env
+
+USER root 
+ENV DEBIAN_FRONTEND=noninteractive
+# to allow for add-apt-repository:
+RUN apt-get install -y software-properties-common
+RUN apt install -y wget build-essential libncursesw5-dev libssl-dev \
+libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
+
+RUN add-apt-repository ppa:deadsnakes/ppa
+
+RUN apt install -y python3.11
+
+RUN wget https://bootstrap.pypa.io/get-pip.py
+RUN python3.11 get-pip.py
+USER sfaiz

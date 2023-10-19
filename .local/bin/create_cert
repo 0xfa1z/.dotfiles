@@ -1,11 +1,13 @@
 #!/bin/bash
 
+key_name=$1
+
 # Directory to hold SSH keys for the sfaiz user
 SSH_DIR="$HOME/.ssh"
 
 # SSH key files
-PRIVATE_KEY="$SSH_DIR/git-key-me"
-PUBLIC_KEY="$SSH_DIR/git-key-me.pub"
+PRIVATE_KEY="$SSH_DIR/$key_name"
+PUBLIC_KEY="$SSH_DIR/$key_name.pub"
 
 # Check if SSH directory exists
 if [ ! -d "$SSH_DIR" ]; then
