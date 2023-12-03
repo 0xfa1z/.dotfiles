@@ -1,13 +1,19 @@
 # dotfiles
 
-# get access to the private Repo
+sudo apt-get update
+sudo apt-get upgrade
 
-copy the create_cert script
-create the certificate and enter it into github
-create the .gitconfig
+mkdir .ssh
+cd .ssh
+vi create_cert
+chmod +x create_cert
+vi config
+git config --global user.name "0xfa1z"
+git config --global user.email "sofian@faiz.digital"
 
 ``` bash
-git clone --bare https://github.com/0xfa1z/dotfiles.git $HOME/.dotfiles
+git clone --bare git@me:0xfa1z/dotfiles.git $HOME/.dotfiles
+mv .ssh/config .ssh/config_old
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
 ```
 
