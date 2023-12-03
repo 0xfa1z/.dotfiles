@@ -1,5 +1,6 @@
 # dotfiles
 
+```shell
 sudo apt-get update
 sudo apt-get upgrade
 
@@ -11,7 +12,6 @@ vi config
 git config --global user.name "0xfa1z"
 git config --global user.email "sofian@faiz.digital"
 
-``` bash
 git clone --bare git@me:0xfa1z/dotfiles.git $HOME/.dotfiles
 mv .ssh/config .ssh/config_old
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
