@@ -27,13 +27,8 @@ alias .='cd ..'
 alias ..='cd ../..'
 alias ...='cd ../../..'
 
-alias kruell='ssh -i "~/kruell-test.pem" ubuntu@ec2-35-157-167-90.eu-central-1.compute.amazonaws.com'
-
 export PATH="$HOME/.local/bin:$PATH"
 export CDPATH=".:$HOME:$HOME/dev"
-
-# create work go-work-container go-dev-env
-# create personal go-personal-container go-dev-env
 
 build() {
 	local build_target=$1
@@ -91,7 +86,7 @@ run() {
 	shift
 
 	if [[ "$command" == "mvn" ]]; then
-	    docker run -it --rm --name mvn_build2 -v "$(pwd)":/usr/src/code -v $HOME/.m2:/root/.m2 -p 8081:8081 -w /usr/src/code maven:3.8.5-openjdk-17 mvn $@
+	    docker run -it --rm --name mvn_build -v "$(pwd)":/usr/src/code -v $HOME/.m2:/root/.m2 -p 8081:8081 -w /usr/src/code maven:3.8.5-openjdk-17 mvn $@
 	elif [[ "$command" == "java" ]]; then
 	    docker run -it --rm --name java_run -v "$(pwd)":/usr/src/code -w /usr/src/code openjdk:17 java $@
 	fi
