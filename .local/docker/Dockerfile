@@ -22,14 +22,6 @@ RUN sudo apt-get update
 
 RUN sudo apt-get install -y docker-ce-cli docker-buildx-plugin docker-compose-plugin
 
-# Set an environment variable for the Git token
-ARG GIT_TOKEN
-ARG GIT_NAME
-ARG GIT_EMAIL
-ENV GIT_TOKEN=${GIT_TOKEN}
-ENV GIT_NAME=${GIT_NAME}
-ENV GIT_EMAIL=${GIT_EMAIL}
-
 # Set root password
 RUN echo 'root:root' | chpasswd
 
@@ -42,24 +34,15 @@ RUN groupadd -g 1001 docker # -g <HOST_DOCKER_GROUP_GID> docker
 # RUN groupmod -g 1001 docker
 RUN usermod -aG docker sfaiz
 
-
-# Switch to the user
-USER sfaiz
-WORKDIR /home/sfaiz
-
 # You could COPY a .zshrc file here if you have one on your host
-USER root
 COPY .zshrc /home/sfaiz/.zshrc
 COPY .tmux.conf /home/sfaiz/.tmux.conf
 RUN chown sfaiz:sfaiz /home/sfaiz/.zshrc
 RUN chown sfaiz:sfaiz /home/sfaiz/.tmux.conf
-RUN mkdir -p /home/sfaiz/workdir && chown sfaiz:sfaiz /home/sfaiz/workdir
-VOLUME ["/home/sfaiz/workdir"]
+# RUN mkdir -p /home/sfaiz/workdir && chown sfaiz:sfaiz /home/sfaiz/workdir
+# VOLUME ["/home/sfaiz/workdir"]
 USER sfaiz
-
-# Setup Git Configurations
-RUN git config --global user.name ${GIT_NAME} \
-    && git config --global user.email ${GIT_EMAIL}
+WORKDIR /home/sfaiz
 
 # ----- Go Stage -----
 FROM base AS go-env
