@@ -15,6 +15,7 @@ git config --global user.email "sofian@faiz.digital"
 git clone --bare git@me:0xfa1z/dotfiles.git $HOME/.dotfiles
 mv .ssh/config .ssh/config_old
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
+sudo ./.local/bin/install_dotfiles
 ```
 
 clean up with: 
