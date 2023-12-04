@@ -26,7 +26,7 @@ sudo cp nvim-linux64/bin/nvim /usr/bin
 sudo cp -r nvim-linux64/share/nvim /usr/share
 rm -r nvim-linux64 nvim-linux64.tar.gz
 
-sudo apt-get install ripgrep nodejs
+sudo apt-get install ripgrep nodejs tree
 git clone git@me:0xfa1z/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
 
 in nvim do :Copilot setup
