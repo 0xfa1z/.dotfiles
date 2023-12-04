@@ -11,6 +11,9 @@ RPROMPT=\$vcs_info_msg_0_
 zstyle ':vcs_info:git:*' formats '%F{yellow}(%b) %r%f'
 zstyle ':vcs_info:*' enable git
 
+HISTFILE=~/.zsh_history
+SAVEHIST=1000
+
 # makes autocompletion not case-sensitive
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}=[A-Za-z]'
@@ -21,8 +24,8 @@ alias vzsh='vi ~/.zshrc'
 # alias host='echo $HOSTNAME'
 alias gs='git status'
 alias ga='git add -A'
-alias vi='nvim'
-alias vim='nvim'
+# alias vi='nvim'
+# alias vim='nvim'
 alias .='cd ..'
 alias ..='cd ../..'
 alias ...='cd ../../..'

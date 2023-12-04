@@ -1,0 +1,19 @@
+[user]
+	name = 0xfa1z
+	email = sofian@faiz.digital
+
+[includeIf "gitdir:~/dev/me/"]
+	path = ~/dev/me/.gitconfig.me
+
+[includeIf "gitdir:~/dev/im/"]
+	path = ~/dev/im/.gitconfig.im
+
+[includeIf "gitdir:~/dev/uni/"]
+	path = ~/dev/uni/.gitconfig.uni
+
+[credential]
+	helper = store
+
+[core]
+	editor = vi
+	excludesfile = ~/.gitignore

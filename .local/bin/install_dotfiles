@@ -23,7 +23,8 @@ setupDotfilesRepo() {
 
 setupZsh() {
   sudo apt -y install zsh
-  echo $USER_PASS | chsh -s $(which zsh)
+  # echo $USER_PASS | chsh -s $(which zsh)
+  sudo chsh -s $(which zsh)
 }
 
 setupGit() {
@@ -80,8 +81,8 @@ set -e
 setupDotfilesRepo
 touch .hushlogin
 mkdir -p .local/bin
-apt update
-apt -y upgrade
+sudo apt update
+sudo apt -y upgrade
 setupZsh
 
 # if [ "$SET_GIT" = "true" ]; then
