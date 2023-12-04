@@ -18,6 +18,18 @@ git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
 rm .ssh/config_old
 sudo ./.local/bin/install_dotfiles
 chsh -s $(which zsh)
+
+sudo apt-get install build-essential
+wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
+tar -xvf nvim-linux64.tar.gz
+sudo cp nvim-linux64/bin/nvim /usr/bin
+sudo cp -r nvim-linux64/share/nvim /usr/share
+rm -r nvim-linux64 nvim-linux64.tar.gz
+
+sudo apt-get install ripgrep
+git clone git@me:0xfa1z/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+
+in nvim do :Copilot
 ```
 
 clean up with: 
