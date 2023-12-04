@@ -26,8 +26,13 @@ sudo cp nvim-linux64/bin/nvim /usr/bin
 sudo cp -r nvim-linux64/share/nvim /usr/share
 rm -r nvim-linux64 nvim-linux64.tar.gz
 
-sudo apt-get install ripgrep nodejs tree
+sudo apt-get install ripgrep tree
 git clone git@me:0xfa1z/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+
+wget https://nodejs.org/dist/v20.10.0/node-v20.10.0-linux-x64.tar.xz
+mkdir ~/.local/nodejs
+tar -xJvf node-v20.10.0-linux-x64.tar.xz -C ~/.local/nodejs --strip-components=1
+# update path to contain ~/.local/nodejs/bin
 
 in nvim do :Copilot setup
 ```
