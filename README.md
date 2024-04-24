@@ -11,7 +11,8 @@ su - sfaiz
 ssh-keygen -t rsa -b 4096
 cat ~/.ssh/id_rsa.pub
 
-
+git clone --bare git@me:0xfa1z/dotfiles.git $HOME/.dotfiles
+git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
 
 
 mkdir .ssh
