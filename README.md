@@ -4,6 +4,11 @@
 sudo apt-get update
 sudo apt-get upgrade
 
+sudo adduser sfaiz
+ssh-keygen -t rsa -b 4096
+cat ~/.ssh/id_rsa.pub
+
+
 mkdir .ssh
 cd .ssh
 vi create_cert
