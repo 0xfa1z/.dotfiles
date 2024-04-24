@@ -20,6 +20,7 @@ git config --global user.email "sofian@faiz.digital"
 
 dot remote set-url origin git@me:0xfa1z/dotfiles.git
 
+chsh -s $(which zsh)
 
 
 ---
