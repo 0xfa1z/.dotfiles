@@ -14,6 +14,9 @@ cat ~/.ssh/id_rsa.pub
 git clone --bare git@me:0xfa1z/dotfiles.git $HOME/.dotfiles
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
 
+git clone --bare git@me:0xfa1z/dotfiles.git $HOME/.dotfiles
+git config --global user.name "0xfa1z"
+git config --global user.email "sofian@faiz.digital"
 
 mkdir .ssh
 cd .ssh
