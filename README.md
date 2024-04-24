@@ -4,6 +4,27 @@
 sudo apt-get update
 sudo apt-get upgrade
 
+sudo adduser sfaiz
+sudo usermod -aG sudo sfaiz
+groups sfaiz
+su - sfaiz
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/git_me
+
+cat ~/.ssh/git_me.pub
+
+git clone --bare git@github.com:0xfa1z/dotfiles.git $HOME/.dotfiles
+git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
+
+git config --global user.name "0xfa1z"
+git config --global user.email "sofian@faiz.digital"
+
+dot remote set-url origin git@me:0xfa1z/dotfiles.git
+
+chsh -s $(which zsh)
+
+
+---
+
 mkdir .ssh
 cd .ssh
 vi create_cert
@@ -18,6 +39,23 @@ git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
 rm .ssh/config_old
 sudo ./.local/bin/install_dotfiles
 chsh -s $(which zsh)
+
+sudo apt-get install build-essential
+wget https://github.com/neovim/neovim/releases/download/stable/nvim-linux64.tar.gz
+tar -xvf nvim-linux64.tar.gz
+cp nvim-linux64/bin/nvim .local/bin
+cp -r nvim-linux64/share/nvim .local/share
+rm -r nvim-linux64 nvim-linux64.tar.gz
+
+sudo apt-get install ripgrep tree
+git clone git@me:0xfa1z/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+
+wget https://nodejs.org/dist/v20.10.0/node-v20.10.0-linux-x64.tar.xz
+mkdir ~/.local/nodejs
+tar -xJvf node-v20.10.0-linux-x64.tar.xz -C ~/.local/nodejs --strip-components=1
+# update path to contain ~/.local/nodejs/bin
+
+in nvim do :Copilot setup
 ```
 
 clean up with: 
