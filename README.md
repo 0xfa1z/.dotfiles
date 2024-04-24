@@ -5,18 +5,24 @@ sudo apt-get update
 sudo apt-get upgrade
 
 sudo adduser sfaiz
-sudo usermod -aG sudo newusername
-groups newusername
+sudo usermod -aG sudo sfaiz
+groups sfaiz
 su - sfaiz
-ssh-keygen -t rsa -b 4096
-cat ~/.ssh/id_rsa.pub
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/git_me
 
-git clone --bare git@me:0xfa1z/dotfiles.git $HOME/.dotfiles
+cat ~/.ssh/git_me.pub
+
+git clone --bare git@github.com:0xfa1z/dotfiles.git $HOME/.dotfiles
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
 
-git clone --bare git@me:0xfa1z/dotfiles.git $HOME/.dotfiles
 git config --global user.name "0xfa1z"
 git config --global user.email "sofian@faiz.digital"
+
+dot remote set-url origin git@me:0xfa1z/dotfiles.git
+
+
+
+---
 
 mkdir .ssh
 cd .ssh
