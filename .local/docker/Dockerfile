@@ -45,7 +45,7 @@ USER sfaiz
 WORKDIR /home/sfaiz
 
 # ----- Go Stage -----
-FROM base AS go-env
+FROM base-env AS go-env
 
 # Install Go
 USER root
@@ -63,7 +63,7 @@ USER sfaiz
 RUN echo 'export PATH=$PATH:/usr/local/go/bin' >> /home/sfaiz/.zshrc
 
 # ----- Java Stage -----
-FROM base AS java-env
+FROM base-env AS java-env
 
 # Install Java
 USER root
@@ -73,7 +73,7 @@ RUN apt-get update && \
 USER sfaiz
 
 # ----- ANN Stage -----
-FROM base AS ann-env
+FROM base-env AS ann-env
 
 USER root 
 ENV DEBIAN_FRONTEND=noninteractive
