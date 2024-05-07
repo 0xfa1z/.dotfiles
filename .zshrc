@@ -37,6 +37,7 @@ alias .='cd ..'
 alias ..='cd ../..'
 alias ...='cd ../../..'
 alias ....='cd ../../../..'
+alias idea='cmd.exe /C idea.bat "$(wslpath -w $(pwd))" &'
 
 export JAVA_HOME="/usr"
 export MAVEN_HOME="/opt/apache-maven-3.9.6"
