@@ -19,12 +19,6 @@
 
 3. Restart the shell.
 
-4. Set remote URL and upstream branch:
-    ```sh
-    dot remote set-url origin git@me:0xfa1z/dotfiles.git
-    dot branch --set-upstream-to=origin/main main
-    ```
-
 ---
 
 ## User Setup
