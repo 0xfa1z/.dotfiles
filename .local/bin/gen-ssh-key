@@ -4,7 +4,7 @@
 if [ -z "$1" ]; then
     echo "Error: No key name provided."
     echo "Usage: $0 <key_name>"
-    echo "Key names to use for git: git_me, git_im, git_uni"
+    echo "Key names to use for git: git-me, git-im, git-uni"
     exit 1
 fi
 
