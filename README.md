@@ -36,4 +36,8 @@
 To clean up the current directory:
 ```sh
 find . -mindepth 1 -maxdepth 1 | xargs rm -r
+
+# or
+
+sudo find . -mindepth 1 -maxdepth 1 ! -name '.ssh' -exec rm -r {} +
 ```
