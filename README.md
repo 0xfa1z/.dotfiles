@@ -1,14 +1,6 @@
 # dotfiles
 
 ```shell
-sudo apt-get update
-sudo apt-get upgrade
-
-sudo adduser sfaiz
-sudo usermod -aG sudo sfaiz
-groups sfaiz
-su - sfaiz
-
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/git_me
 cat ~/.ssh/git_me.pub
 eval "$(ssh-agent -s)"
@@ -16,6 +8,9 @@ ssh-add ~/.ssh/git_me
 
 git clone --bare git@github.com:0xfa1z/dotfiles.git $HOME/.dotfiles
 git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
+./.local/bin/install_dotfiles
+
+# restart the shell
 
 git config --global user.name "0xfa1z"
 git config --global user.email "sofian@faiz.digital"
@@ -26,6 +21,11 @@ chsh -s $(which zsh)
 
 
 ---
+# If you need to setup a User:
+sudo adduser sfaiz
+sudo usermod -aG sudo sfaiz
+groups sfaiz
+su - sfaiz
 
 mkdir .ssh
 cd .ssh
