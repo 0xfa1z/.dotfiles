@@ -4,10 +4,10 @@
 
 1. Generate an SSH key and add it to Github:
     ```sh
-    ssh-keygen -t rsa -b 4096 -f ~/.ssh/git_me
-    cat ~/.ssh/git_me.pub
+    ssh-keygen -t rsa -b 4096 -f ~/.ssh/git-me
+    cat ~/.ssh/git-me.pub
     eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/git_me
+    ssh-add ~/.ssh/git-me
     ```
 
 2. Clone and checkout dotfiles:
