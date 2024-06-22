@@ -12,13 +12,8 @@ git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
 
 # restart the shell
 
-git config --global user.name "0xfa1z"
-git config --global user.email "sofian@faiz.digital"
-
 dot remote set-url origin git@me:0xfa1z/dotfiles.git
-
-chsh -s $(which zsh)
-
+dot push --set-upstream origin main
 
 ---
 # If you need to setup a User:
