@@ -30,7 +30,34 @@ setupZsh() {
   sudo chsh -s $(which zsh) $USER
 }
 
+setupNvim() {
+  # Download the latest stable release of Neovim
+  curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+
+  # Remove any existing Neovim installation in /opt
+  sudo rm -rf /opt/nvim
+
+  # Extract the tarball to /opt
+  sudo tar -C /opt -xzf nvim-linux64.tar.gz
+
+  # Ensure the extracted directory is named /opt/nvim
+  sudo mv /opt/nvim-linux64 /opt/nvim
+
+  # Clean up the downloaded tarball
+  rm nvim-linux64.tar.gz
+
+  # Add Neovim to the PATH if not already present
+  if [[ ":$PATH:" != *":/opt/nvim/bin:"* ]]; then
+    echo 'export PATH="$PATH:/opt/nvim/bin"' >> $HOME/.bashrc
+    export PATH="$PATH:/opt/nvim/bin"
+  fi
+
+  # Inform the user that Neovim has been installed
+  echo "Neovim has been installed in /opt/nvim and added to your PATH."
+}
+
 setupDotfilesRepo
 sudo apt update
 sudo apt -y upgrade
 setupZsh
+setupNvim
