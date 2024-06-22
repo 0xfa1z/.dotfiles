@@ -39,6 +39,10 @@ alias vim='nvim'
 alias ..='cd ../..'
 alias ...='cd ../../..'
 alias ....='cd ../../../..'
+alias ta='tmux attach-session -t'
+alias tl='tmux list-sessions'
+alias tk='tmux kill-session -t'
+alias tka='tmux kill-server'
 
 ## Environment Variables
 export PATH="$HOME/.local/bin:/opt/nvim/bin:$PATH"
