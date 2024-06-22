@@ -20,6 +20,9 @@ setupDotfilesRepo() {
     # Move README.md from home directory to the .dotfiles directory
     mv $HOME/README.md $HOME/.dotfiles/README.md
   fi
+
+  dot remote set-url origin git@me:0xfa1z/dotfiles.git
+  dot push -u origin main
 }
 
 setupZsh() {
