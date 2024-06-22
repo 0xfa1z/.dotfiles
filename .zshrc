@@ -24,6 +24,7 @@ zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}=[A-Za-z]' # Make autocompleti
 ## Aliases
 alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias dot=dotfiles
+alias dots='dot status'
 alias vzsh='vi ~/.zshrc'
 alias vinit='vi ~/.config/nvim/init.lua'
 alias host='echo $HOSTNAME'
@@ -47,6 +48,8 @@ alias tka='tmux kill-server'
 ## Environment Variables
 export PATH="$HOME/.local/bin:/opt/nvim/bin:$PATH"
 export CDPATH=".:$HOME:$HOME/dev:$HOME/dev/im"
+
+if [ "$TMUX" = "" ]; then tmux; fi
 
 # Custom cd function to silence output when CDPATH is applied
 cd() {
