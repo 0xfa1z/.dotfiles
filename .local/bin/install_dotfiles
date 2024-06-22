@@ -27,7 +27,7 @@ setupZsh() {
 
   # Change the default shell to Zsh for the current user
   # $(which zsh) dynamically finds the path to the Zsh executable
-  chsh -s $(which zsh)
+  sudo chsh -s $(which zsh) $USER
 }
 
 setupDotfilesRepo
