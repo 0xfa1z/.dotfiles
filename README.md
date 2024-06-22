@@ -2,7 +2,7 @@
 
 ## Dotfiles Setup
 
-1. Generate an SSH key:
+1. Generate an SSH key and add it to Github:
     ```sh
     ssh-keygen -t rsa -b 4096 -f ~/.ssh/git_me
     cat ~/.ssh/git_me.pub
@@ -14,7 +14,7 @@
     ```sh
     git clone --bare git@github.com:0xfa1z/dotfiles.git $HOME/.dotfiles
     git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
-    ./.local/bin/install_dotfiles
+    ./.local/bin/setup
     ```
 
 3. Restart the shell.
@@ -22,7 +22,7 @@
 4. Set remote URL and upstream branch:
     ```sh
     dot remote set-url origin git@me:0xfa1z/dotfiles.git
-    git branch --set-upstream-to=origin/main main
+    dot branch --set-upstream-to=origin/main main
     ```
 
 ---
