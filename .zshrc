@@ -41,7 +41,7 @@ alias ...='cd ../../..'
 alias ....='cd ../../../..'
 
 ## Environment Variables
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:/opt/nvim/bin:$PATH"
 export CDPATH=".:$HOME:$HOME/dev:$HOME/dev/im"
 
 # Custom cd function to silence output when CDPATH is applied
