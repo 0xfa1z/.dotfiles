@@ -11,8 +11,7 @@ fi
 key_name=$1
 
 # Directory to hold SSH keys for the sfaiz user
-# SSH_DIR="$HOME/.ssh"
-SSH_DIR=$(pwd)
+SSH_DIR="$HOME/.ssh"
 
 # SSH key files
 PRIVATE_KEY="$SSH_DIR/$key_name"
