@@ -57,6 +57,8 @@ setupNvim() {
 
   # Inform the user that Neovim has been installed
   echo "Neovim has been installed in /opt/nvim and added to your PATH."
+
+  git clone git@me:0xfa1z/nvim-config.git ~/.config/nvim
 }
 
 setupDotfilesRepo
