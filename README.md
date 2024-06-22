@@ -37,7 +37,8 @@ To clean up the current directory:
 ```sh
 find . -mindepth 1 -maxdepth 1 | xargs rm -r
 
-# or
+# or to keep the git key
 
 sudo find . -mindepth 1 -maxdepth 1 ! -name '.ssh' -exec rm -r {} +
+rm .ssh/config
 ```
