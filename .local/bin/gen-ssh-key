@@ -31,6 +31,14 @@ else
     echo "Existing SSH key pair found."
 fi
 
+# Start the SSH agent if not already running
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    eval "$(ssh-agent -s)"
+fi
+
+# Add the SSH key to the agent
+ssh-add "$PRIVATE_KEY"
+
 # Output the public key
 echo "Copy the following SSH public key and add it to your GitHub account:"
 cat "$PUBLIC_KEY"
