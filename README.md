@@ -19,6 +19,14 @@
 
 3. Restart the shell.
 
+4. Add Docker to this WSL under Settings, Resources, WSL integration
+
+5. Add current user to docker group
+   ```sh
+   sudo usermod -aG docker $USER
+   newgrp docker
+   ```
+
 ---
 
 ## User Setup
