@@ -64,5 +64,7 @@ setupNvim() {
 setupDotfilesRepo
 sudo apt update
 sudo apt -y upgrade
+
 setupZsh
 setupNvim
+sudo apt-get install tree
