@@ -33,7 +33,7 @@ alias gs='git status'
 alias gd='git diff'
 alias ga='git add'
 alias gaa='git add -A'
-alias gc='git pull && git commit -m '
+alias gc='git commit -m '
 alias gp='git push'
 alias vi='nvim'
 alias vim='nvim'
@@ -47,7 +47,7 @@ alias tka='tmux kill-server'
 
 ## Environment Variables
 export PATH="$HOME/.local/bin:/opt/nvim/bin:$PATH"
-export CDPATH=".:$HOME:$HOME/dev:$HOME/dev/im"
+export CDPATH=".:$HOME:$HOME/dev:$HOME/dev/im:$HOME/.local:$HOME/.config"
 
 if [ "$TMUX" = "" ]; then tmux; fi
 
