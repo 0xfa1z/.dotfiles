@@ -26,7 +26,7 @@ alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias dot=dotfiles
 alias dots='dot status'
 alias vzsh='vi ~/.zshrc'
-alias vinit='vi ~/.config/nvim/init.lua'
+alias vinit='vi ~/.config/nvim/init.vim'
 alias host='echo $HOSTNAME'
 alias l='ls -la'
 alias gs='git status'
