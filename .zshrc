@@ -26,7 +26,7 @@ alias dotfiles='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 alias dot=dotfiles
 alias dots='dot status'
 alias vzsh='vi ~/.zshrc'
-alias vinit='vi ~/.config/nvim/init.vim'
+alias vinit='vi ~/.config/nvim/init.lua'
 alias host='echo $HOSTNAME'
 alias l='ls -la'
 alias gs='git status'
@@ -47,7 +47,7 @@ alias tka='tmux kill-server'
 
 ## Environment Variables
 export PATH="$HOME/.local/bin:/opt/nvim/bin:$PATH"
-export CDPATH=".:$HOME:$HOME/dev:$HOME/dev/im:$HOME/.local:$HOME/.config"
+export CDPATH=".:$HOME:$HOME/dev:$HOME/dev/me:$HOME/dev/im:$HOME/dev/uni:$HOME/.local:$HOME/.config"
 
 if [ "$TMUX" = "" ]; then tmux; fi
 
