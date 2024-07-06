@@ -19,13 +19,15 @@
 
 3. Restart the shell.
 
-4. Add Docker to this WSL under Settings, Resources, WSL integration
+4. Add ths WSL to Docker Desktop under Settings, Resources, WSL integration
 
 5. Add current user to docker group
    ```sh
    sudo usermod -aG docker $USER
    newgrp docker
    ```
+
+6. Start Neovim and invoke :Copilot setup
 
 ---
 
