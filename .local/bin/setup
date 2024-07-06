@@ -65,6 +65,6 @@ setupDotfilesRepo
 sudo apt update
 sudo apt -y upgrade
 
+sudo apt-get -y install make unzip gcc tree 
 setupZsh
 setupNvim
-sudo apt-get install tree
