@@ -1,54 +1,75 @@
 # Dotfiles Setup
 
-## Dotfiles Setup
+Welcome to my dotfiles repository! This repository contains my personal configurations for setting up a fresh Ubuntu machine, typically for WSL but also compatible with any Ubuntu server.
 
-1. Generate an SSH key and add it to Github:
-    ```sh
-    ssh-keygen -t rsa -b 4096 -f ~/.ssh/git-me
-    cat ~/.ssh/git-me.pub
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/git-me
-    ```
+## Table of Contents
 
-2. Clone and checkout dotfiles:
-    ```sh
-    git clone --bare git@github.com:0xfa1z/.dotfiles.git $HOME/.dotfiles
-    git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
-    ./.local/bin/setup
-    ```
+1. [Overview](#overview)
+2. [Prerequisites](#prerequisites)
+3. [Installation](#installation)
+6. [Uninstall](#uninstall)
 
-3. Restart the shell.
+## Overview
 
-4. Add ths WSL to Docker Desktop under Settings, Resources, WSL integration
+This repository contains configuration files for:
+- Git (`.gitconfig`)
+- Zsh (`.zshrc`)
+- Tmux (`.tmux.conf`)
+- SSH (`.ssh/config`)
+- Custom scripts (`.local/bin`)
 
-5. Add current user to docker group
-   ```sh
-   sudo usermod -aG docker $USER
-   newgrp docker
-   ```
+## Prerequisites
 
-6. Start Neovim and invoke :Copilot setup
+Before you begin, ensure you have met the following requirements:
+- You have Git installed.
+- You have `sudo` access.
 
----
+## Installation
 
-## User Setup
+### Step 1: Generate an SSH key and add it to GitHub
+This step ensures secure access to your GitHub repositories.
+```sh
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/git-me
+cat ~/.ssh/git-me.pub
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/git-me
+```
+[Detailed Guide](https://docs.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 
-1. Add a new user and grant sudo access:
-    ```sh
-    sudo adduser sfaiz
-    sudo usermod -aG sudo sfaiz
-    groups sfaiz
-    su - sfaiz
-    ```
+### Step 2: Clone and checkout dotfiles
+This step clones the dotfiles repository and sets up the environment.
+```sh
+git clone --bare git@github.com:0xfa1z/.dotfiles.git $HOME/.dotfiles
+git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
+./.local/bin/setup
+```
 
-## Cleanup
+### Step 3: Restart the shell
+Restart your shell to apply the new configurations.
 
-To clean up the current directory:
+### Step 4: Set up Neovim
+Start Neovim and run `:Copilot setup` to configure the Copilot plugin.
+
+### Step 5 (Optional): Docker Setup
+
+If you wish to set up Docker, follow these additional steps.
+
+#### Step 1: Add WSL to Docker Desktop
+Add the WSL to Docker Desktop under Settings -> Resources -> WSL Integration.
+
+#### Step 2: Add current user to docker group
+```sh
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+## Uninstall
+
+To clean up the complete home directory:
 ```sh
 find . -mindepth 1 -maxdepth 1 | xargs rm -r
 
-# or to keep the git key
-
+# or keeping the ssh keys
 sudo find . -mindepth 1 -maxdepth 1 ! -name '.ssh' -exec rm -r {} +
 rm .ssh/config
 ```
