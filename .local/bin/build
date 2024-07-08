@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Define session name
+SESSION_NAME="sesh"
+
+# Start tmux session only if it doesn't already exist
+tmux has-session -t $SESSION_NAME 2>/dev/null
+
+if [ $? != 0 ]; then
+  # Create a new tmux session
+  tmux new-session -d -s $SESSION_NAME
+
+  tmux rename-window -t $SESSION_NAME:0 'editor'
+  tmux send-keys -t $SESSION_NAME:0 'nvim .' C-m
+
+  tmux split-window -h -t $SESSION_NAME:0
+  tmux send-keys -t $SESSION_NAME:0.1 'docker run -it --rm -v .:/root -w /root haskell' C-m
+  tmux send-keys -t $SESSION_NAME:0.1 C-l
+  tmux select-pane -t $SESSION_NAME:0.0
+
+  # tmux resize-pane -t $SESSION_NAME:0.1 -x 0%
+  # tmux resize-pane -t $SESSION_NAME:0.1 -D 10  # Increase width by 10 columns
+
+  tmux resize-pane -t $SESSION_NAME:0.1 -x 1
+
+#   tmux new-window -t $SESSION_NAME:1 -n 'logs'
+#   tmux send-keys -t $SESSION_NAME:1 'tail -f /var/log/syslog' C-m
+#   tmux split-window -v -t $SESSION_NAME:1
+#   tmux send-keys -t $SESSION_NAME:1.1 'tail -f /var/log/auth.log' C-m
+
+  tmux select-window -t $SESSION_NAME:0
+fi
+
+# Attach to the tmux session
+tmux attach -t $SESSION_NAME
+

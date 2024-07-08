@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Check if a parameter is given
+if [ -z "$1" ]; then
+    echo "Error: No key name provided."
+    echo "Usage: $0 <key_name>"
+    echo "Key names to use for git: git-me, git-im, git-uni"
+    exit 1
+fi
+
+key_name=$1
+
+# Directory to hold SSH keys for the sfaiz user
+SSH_DIR="$HOME/.ssh"
+
+# SSH key files
+PRIVATE_KEY="$SSH_DIR/$key_name"
+PUBLIC_KEY="$SSH_DIR/$key_name.pub"
+
+# Check if SSH directory exists
+if [ ! -d "$SSH_DIR" ]; then
+    mkdir -p "$SSH_DIR"
+    chmod 700 "$SSH_DIR"
+fi
+
+# Generate SSH keys if they don't exist
+if [ ! -f "$PRIVATE_KEY" ] || [ ! -f "$PUBLIC_KEY" ]; then
+    ssh-keygen -t rsa -b 4096 -f "$PRIVATE_KEY" -N ""
+    echo "New SSH key pair generated."
+else
+    echo "Existing SSH key pair found."
+fi
+
+# Start the SSH agent if not already running
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    eval "$(ssh-agent -s)"
+fi
+
+# Add the SSH key to the agent
+ssh-add "$PRIVATE_KEY"
+
+# Output the public key
+echo "Copy the following SSH public key and add it to your GitHub account:"
+cat "$PUBLIC_KEY"

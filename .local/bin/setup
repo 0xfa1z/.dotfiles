@@ -1,0 +1,72 @@
+#!/bin/bash
+
+setupDotfilesRepo() {
+  # Define a local function 'dotfiles' that uses git with a specific git directory and work tree
+  dotfiles() {
+    git --git-dir=$HOME/.dotfiles --work-tree=$HOME "$@"
+  }
+
+  # Configure the dotfiles repo to not show untracked files in git status
+  dotfiles config --local status.showUntrackedFiles no
+
+  # Check if a README.md file exists in the current directory
+  if [ -f "README.md" ]; then
+    # Remove README.md from the git index (unstage it)
+    dotfiles reset README.md
+
+    # Tell git to ignore changes to README.md
+    dotfiles update-index --assume-unchanged README.md
+
+    # Move README.md from home directory to the .dotfiles directory
+    mv $HOME/README.md $HOME/.dotfiles/README.md
+  fi
+
+  dotfiles remote set-url origin git@me:0xfa1z/dotfiles.git
+  dotfiles push -u origin main
+}
+
+setupZsh() {
+  sudo apt -y install zsh
+
+  # Change the default shell to Zsh for the current user
+  # $(which zsh) dynamically finds the path to the Zsh executable
+  sudo chsh -s $(which zsh) $USER
+}
+
+setupNvim() {
+  # Download the latest stable release of Neovim
+  curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+
+  # Remove any existing Neovim installation in /opt
+  sudo rm -rf /opt/nvim
+
+  # Extract the tarball to /opt
+  sudo tar -C /opt -xzf nvim-linux64.tar.gz
+
+  # Ensure the extracted directory is named /opt/nvim
+  sudo mv /opt/nvim-linux64 /opt/nvim
+
+  # Clean up the downloaded tarball
+  rm nvim-linux64.tar.gz
+
+  # Add Neovim to the PATH if not already present
+  if [[ ":$PATH:" != *":/opt/nvim/bin:"* ]]; then
+    echo 'export PATH="$PATH:/opt/nvim/bin"' >> $HOME/.bashrc
+    export PATH="$PATH:/opt/nvim/bin"
+  fi
+
+  # Inform the user that Neovim has been installed
+  echo "Neovim has been installed in /opt/nvim and added to your PATH."
+
+  git clone git@me:0xfa1z/kickstart.nvim.git ~/.config/nvim
+}
+
+setupDotfilesRepo
+sudo apt update
+sudo apt -y upgrade
+
+sudo apt-get install -y curl tree
+sudo apt-get install -y make unzip gcc   # Kickstart.nvim dependencies
+sudo apt-get install -y nodejs           # Copilot dependency
+setupZsh
+setupNvim
