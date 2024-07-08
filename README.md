@@ -12,7 +12,7 @@
 
 2. Clone and checkout dotfiles:
     ```sh
-    git clone --bare git@github.com:0xfa1z/dotfiles.git $HOME/.dotfiles
+    git clone --bare git@github.com:0xfa1z/.dotfiles.git $HOME/.dotfiles
     git --git-dir=$HOME/.dotfiles --work-tree=$HOME checkout
     ./.local/bin/setup
     ```
