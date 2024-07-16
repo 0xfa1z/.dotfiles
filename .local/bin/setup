@@ -33,6 +33,29 @@ setupZsh() {
   sudo chsh -s $(which zsh) $USER
 }
 
+setupTmux() {
+  sudo apt-get install -y tmux
+
+  # Clone TPM
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+  # Ensure tmux configuration file exists
+  touch ~/.tmux.conf
+
+  # Add TPM initialization to .tmux.conf if not already present
+  if ! grep -q "run '~/.tmux/plugins/tpm/tpm'" ~/.tmux.conf; then
+      echo "run '~/.tmux/plugins/tpm/tpm'" >> ~/.tmux.conf
+  fi
+
+  # Add the automatic plugin install line to .tmux.conf if not already present
+  if ! grep -q "if-shell '[ -z \"\$(ls ~/.tmux/plugins/)\" ]' 'run \"~/.tmux/plugins/tpm/bindings/install_plugins\"'" ~/.tmux.conf; then
+      echo "if-shell '[ -z \"\$(ls ~/.tmux/plugins/)\" ]' 'run \"~/.tmux/plugins/tpm/bindings/install_plugins\"'" >> ~/.tmux.conf
+  fi
+
+  # Source the tmux configuration to ensure plugins are installed
+  tmux source-file ~/.tmux.conf
+}
+
 setupNvim() {
   # Download the latest stable release of Neovim
   curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
@@ -68,5 +91,7 @@ sudo apt -y upgrade
 sudo apt-get install -y curl tree
 sudo apt-get install -y make unzip gcc   # Kickstart.nvim dependencies
 sudo apt-get install -y nodejs           # Copilot dependency
+
 setupZsh
+setupTmux
 setupNvim

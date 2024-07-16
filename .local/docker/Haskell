@@ -1,0 +1,26 @@
+FROM haskell:latest
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    && apt-get clean
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Add /opt/nvim/bin to the PATH
+ENV PATH="/opt/nvim/bin:${PATH}"
+
+# Copy your Neovim configuration
+COPY /home/sfaiz/.config/nvim /root/.config/nvim
+
+# Install stack and setup
+RUN stack setup
+
+# Expose port 8080 for web applications
+# EXPOSE 8080
+
+# Default command to run when the container starts
+# CMD ["stack", "exec", "your-executable"]
+CMD ["bash"]
