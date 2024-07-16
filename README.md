@@ -2,13 +2,6 @@
 
 Welcome to my dotfiles repository! This repository contains my personal configurations for setting up a fresh Ubuntu machine, typically for WSL but also compatible with any Ubuntu server.
 
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Prerequisites](#prerequisites)
-3. [Installation](#installation)
-6. [Uninstall](#uninstall)
-
 ## Overview
 
 This repository contains configuration files for:
