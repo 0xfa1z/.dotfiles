@@ -94,4 +94,5 @@ sudo apt-get install -y nodejs           # Copilot dependency
 
 setupZsh
 setupTmux
+setupZsh
 setupNvim
