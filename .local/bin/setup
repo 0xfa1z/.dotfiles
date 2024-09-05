@@ -89,7 +89,7 @@ sudo apt update
 sudo apt -y upgrade
 
 sudo apt-get install -y curl tree
-sudo apt-get install -y make unzip gcc   # Kickstart.nvim dependencies
+sudo apt-get install -y ripgrep make unzip gcc   # Kickstart.nvim dependencies
 sudo apt-get install -y nodejs           # Copilot dependency
 
 setupZsh
